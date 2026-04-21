@@ -1,92 +1,87 @@
 const BASE_URL = "https://localhost:7070/api";
 
-export async function login(usuario, senha) {
-  const response = await fetch(`${BASE_URL}/Auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ usuario, senha })
+async function request(endpoint, options = {}) {
+  const token = localStorage.getItem("token");
+
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...options.headers
+  };
+
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
+    ...options,
+    headers
   });
 
   if (!response.ok) {
-    throw new Error("Erro na requisição");
+    let errorMessage = "Erro na requisição";
+
+    try {
+      const errorData = await response.json();
+      errorMessage = errorData.message || JSON.stringify(errorData);
+    } catch {
+      errorMessage = await response.text();
+    }
+
+    throw new Error(errorMessage);
   }
 
-  return response.json();
-}
-
-export async function getTotalVendas() {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`${BASE_URL}/Relatorio/total-vendas`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+  if (response.status === 204) return null;
 
   return response.json();
 }
 
-export async function getQuantidadeVendas() {
-  const token = localStorage.getItem("token");
 
-  const response = await fetch(`${BASE_URL}/Relatorio/quantidade-vendas`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  return response.json();
-}
-
-export async function getVendas() {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`${BASE_URL}/Venda`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  return response.json();
-}
-
-export async function getContratos() {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`${BASE_URL}/Contrato`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  return response.json();
-}
-
-export async function getFaturas() {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(`${BASE_URL}/Fatura`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  return response.json();
-}
-
-export async function criarVenda(dados) {
-  const token = localStorage.getItem("token");
-
-  const res = await fetch(`${BASE_URL}/Venda`, {
+export async function login(usuario, senha) {
+  const data = await request("/Auth/login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
-    },
+    body: JSON.stringify({
+      email: usuario,
+      senha: senha // ✅ CORRIGIDO AQUI
+    })
+  });
+
+  const token = data.token || data.accessToken;
+
+  if (!token) {
+    throw new Error("Token não veio da API");
+  }
+
+  localStorage.setItem("token", token);
+
+  return data;
+}
+
+
+export function getTotalVendas() {
+  return request("/Relatorio/total-vendas");
+}
+
+export function getQuantidadeVendas() {
+  return request("/Relatorio/quantidade-vendas");
+}
+
+export function getVendas() {
+  return request("/Venda");
+}
+
+export function criarVenda(dados) {
+  return request("/Venda", {
+    method: "POST",
     body: JSON.stringify(dados)
   });
+}
 
-  return res;
+export function getContratos() {
+  return request("/Contrato");
+}
+
+export function getFaturas() {
+  return request("/Fatura");
+}
+export function deletarVenda(id) {
+  return request(`/Venda/${id}`, {
+    method: "DELETE"
+  });
 }

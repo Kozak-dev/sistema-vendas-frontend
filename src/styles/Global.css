@@ -1,0 +1,33 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FUNDO PRINCIPAL */
+body {
+  background: #020617;
+  color: #e2e8f0;
+  font-family: "Inter", sans-serif;
+}
+
+/* SCROLL BONITO */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 10px;
+}
+
+/* TITULOS */
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+/* TEXTO SUAVE */
+p {
+  color: #94a3b8;
+}

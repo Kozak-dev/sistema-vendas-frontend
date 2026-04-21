@@ -1,0 +1,125 @@
+/* LAYOUT */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #020617;
+}
+
+/* SIDEBAR FIXO */
+.sidebar {
+  width: 240px;
+  background: #020617;
+  border-right: 1px solid rgba(255,255,255,0.05);
+
+  padding: 20px;
+
+  position: fixed;   /* 🔥 ISSO ARRUMA */
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+/* TÍTULO */
+.sidebar h2 {
+  color: white;
+  margin-bottom: 30px;
+}
+
+/* MENU */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  transition: 0.2s;
+}
+
+.sidebar li:hover {
+  background: rgba(99,102,241,0.2);
+  color: white;
+}
+
+.sidebar .active {
+  background: #6366f1;
+  color: white;
+}
+
+/* BOTÃO */
+.logout {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background: #ef4444;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* CONTEÚDO */
+.content {
+  margin-left: 240px; /* 🔥 ESSENCIAL */
+  padding: 30px;
+  width: 100%;
+}.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #020617;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.sidebar h2 {
+  color: white;
+  margin-bottom: 30px;
+}
+
+/* REMOVE estilo padrão */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* LINKS */
+.sidebar a {
+  display: block;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #94a3b8;
+  transition: 0.2s;
+}
+
+/* HOVER */
+.sidebar a:hover {
+  background: rgba(99,102,241,0.2);
+  color: white;
+}
+
+/* ATIVO (🔥 MAIS IMPORTANTE) */
+.sidebar a.active {
+  background: #6366f1;
+  color: white;
+}
+
+/* BOTÃO */
+.logout {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background: #ef4444;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}

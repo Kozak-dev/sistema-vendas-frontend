@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { login } from "../services/api";
-import "./Login.css";
+import "../styles/Login.css";
 
 export default function Login() {
   const [usuario, setUsuario] = useState("");
@@ -14,12 +14,13 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const data = await login(usuario, senha);
+      await login(usuario, senha);
 
-      localStorage.setItem("token", data.token);
+      // 🔥 não precisa salvar token aqui (já salvou no api.js)
       window.location.href = "/dashboard";
 
     } catch (err) {
+      console.error(err);
       setErro("Usuário ou senha inválidos");
     } finally {
       setLoading(false);
@@ -28,9 +29,8 @@ export default function Login() {
 
   return (
     <div className="login-container">
-
       <form className="login-box" onSubmit={handleLogin}>
-        <h2>Login</h2>
+        <h2>Conecte-se</h2>
 
         {erro && <p className="erro">{erro}</p>}
 
@@ -54,7 +54,6 @@ export default function Login() {
           {loading ? "Entrando..." : "Entrar"}
         </button>
       </form>
-
     </div>
   );
 }
