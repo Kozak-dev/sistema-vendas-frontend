@@ -1,44 +1,61 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import "../styles/Sidebar.css";
+export default function Sidebar({ setTela, tela }) {
 
-export default function Sidebar() {
-  const navigate = useNavigate();
+  const isSuporte = tela === "suporte";
+  const isFinanceiro = tela === "financeiro";
+  const isGestao = tela === "gestao";
+
+  // cor dinâmica
+  let sidebarClass = "sidebar";
+
+  if (isSuporte) sidebarClass += " suporte";
+  else if (isFinanceiro) sidebarClass += " financeiro";
+  else sidebarClass += " diretoria"; // padrão (dashboard + gestão)
 
   return (
-    <aside className="sidebar">
-      <h2>CRM</h2>
+    <div className={sidebarClass}>
 
-      <ul>
-        <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/vendas">Vendas</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/contratos">Contratos</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/faturas">Faturas</NavLink>
-        </li>
-
-        <li>
-          <NavLink to="/relatorios">Relatórios</NavLink>
-        </li>
-      </ul>
+      <div className="logo">
+        <h2>SALA</h2>
+        <p>
+          {isSuporte && "Suporte Técnico"}
+          {isFinanceiro && "Controladoria"}
+          {(tela === "dashboard" || isGestao) && "Diretoria"}
+        </p>
+      </div>
 
       <button
-        className="logout"
-        onClick={() => {
-          localStorage.removeItem("token");
-          navigate("/");
-        }}
+        className={tela === "dashboard" ? "active" : ""}
+        onClick={() => setTela("dashboard")}
       >
-        Sair
+        Dashboard
       </button>
-    </aside>
+
+      <button
+        className={tela === "suporte" ? "active" : ""}
+        onClick={() => setTela("suporte")}
+      >
+        Suporte
+      </button>
+
+      <button
+        className={tela === "financeiro" ? "active" : ""}
+        onClick={() => setTela("financeiro")}
+      >
+        Financeiro
+      </button>
+
+      <button
+        className={tela === "gestao" ? "active" : ""}
+        onClick={() => setTela("gestao")}
+      >
+        Gestão
+      </button>
+
+      <div className="bottom">
+        <button className="danger">Zerar Banco de Dados</button>
+        <button>Sair</button>
+      </div>
+
+    </div>
   );
 }

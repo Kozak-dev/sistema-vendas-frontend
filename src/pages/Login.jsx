@@ -13,10 +13,23 @@ export default function Login() {
     setErro("");
     setLoading(true);
 
+    const usuarioDigitado = usuario.trim().toLowerCase();
+
     try {
+      // 🔥 ADMIN FIXO (igual seu HTML antigo)
+      if (
+        (usuarioDigitado === "admin@sala.com" ||
+          usuarioDigitado === "henrique@sala.com") &&
+        senha === "123"
+      ) {
+        localStorage.setItem("cargo", "admin");
+        window.location.href = "/admin";
+        return;
+      }
+
+      // 🔥 LOGIN REAL (API .NET)
       await login(usuario, senha);
 
-      // 🔥 não precisa salvar token aqui (já salvou no api.js)
       window.location.href = "/dashboard";
 
     } catch (err) {
@@ -27,16 +40,25 @@ export default function Login() {
     }
   }
 
+  function abrirRecuperacao() {
+    const email = prompt("Digite seu e-mail corporativo:");
+    if (email) {
+      alert("Link enviado para: " + email);
+    }
+  }
+
   return (
     <div className="login-container">
       <form className="login-box" onSubmit={handleLogin}>
-        <h2>Conecte-se</h2>
+        
+        {/* 🔥 Título estilo SALA */}
+        <h1 className="titulo-sala">SALA</h1>
 
         {erro && <p className="erro">{erro}</p>}
 
         <input
-          type="text"
-          placeholder="Usuário"
+          type="email"
+          placeholder="Digite seu Email"
           value={usuario}
           onChange={(e) => setUsuario(e.target.value)}
           required
@@ -44,15 +66,23 @@ export default function Login() {
 
         <input
           type="password"
-          placeholder="Senha"
+          placeholder="Digite sua senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           required
         />
 
         <button type="submit" disabled={loading}>
-          {loading ? "Entrando..." : "Entrar"}
+          {loading ? "Entrando..." : "Entrar no Sistema"}
         </button>
+
+        {/* 🔥 Recuperação de senha */}
+        <div style={{ marginTop: "10px" }}>
+          <span className="link-recuperacao" onClick={abrirRecuperacao}>
+            Esqueceu sua senha?
+          </span>
+        </div>
+
       </form>
     </div>
   );

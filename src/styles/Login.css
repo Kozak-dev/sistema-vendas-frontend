@@ -1,0 +1,75 @@
+/* Fundo da tela */
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #003366 0%, #0165c8 100%);
+}
+
+/* Caixa de login */
+.login-box {
+  width: 350px;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Título SALA */
+.titulo-sala {
+  font-family: 'Montserrat', sans-serif;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+  font-weight: 800;
+}
+
+/* Inputs */
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Botão */
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: #222;
+}
+
+/* Link recuperar senha */
+.link-recuperacao {
+  color: #ccc;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.link-recuperacao:hover {
+  text-decoration: underline;
+}
+
+/* Mensagem de erro */
+.erro {
+  color: yellow;
+  margin-bottom: 10px;
+}

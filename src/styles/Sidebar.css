@@ -1,125 +1,91 @@
-/* LAYOUT */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  background: #020617;
-}
-
-/* SIDEBAR FIXO */
 .sidebar {
-  width: 240px;
-  background: #020617;
-  border-right: 1px solid rgba(255,255,255,0.05);
-
-  padding: 20px;
-
-  position: fixed;   /* 🔥 ISSO ARRUMA */
-  top: 0;
-  left: 0;
+  width: 250px;
   height: 100vh;
+  background: linear-gradient(180deg, #0d3b66, #0b2e4f);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
 }
 
-/* TÍTULO */
-.sidebar h2 {
-  color: white;
+.logo {
+  text-align: center;
   margin-bottom: 30px;
+}
+
+.logo h2 {
+  margin: 0;
+}
+
+.logo span {
+  font-size: 12px;
+  opacity: 0.7;
 }
 
 /* MENU */
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.sidebar li {
-  padding: 10px;
-  color: #94a3b8;
-  cursor: pointer;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  transition: 0.2s;
-}
-
-.sidebar li:hover {
-  background: rgba(99,102,241,0.2);
-  color: white;
-}
-
-.sidebar .active {
-  background: #6366f1;
-  color: white;
-}
-
-/* BOTÃO */
-.logout {
-  margin-top: 20px;
-  width: 100%;
-  padding: 10px;
-  background: #ef4444;
+.menu button {
+  background: rgba(255,255,255,0.08);
   border: none;
   color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* CONTEÚDO */
-.content {
-  margin-left: 240px; /* 🔥 ESSENCIAL */
-  padding: 30px;
-  width: 100%;
-}.sidebar {
-  width: 240px;
-  height: 100vh;
-  background: #020617;
-  padding: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  border-right: 1px solid rgba(255,255,255,0.05);
-}
-
-.sidebar h2 {
-  color: white;
-  margin-bottom: 30px;
-}
-
-/* REMOVE estilo padrão */
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-/* LINKS */
-.sidebar a {
-  display: block;
   padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #94a3b8;
-  transition: 0.2s;
-}
-
-/* HOVER */
-.sidebar a:hover {
-  background: rgba(99,102,241,0.2);
-  color: white;
-}
-
-/* ATIVO (🔥 MAIS IMPORTANTE) */
-.sidebar a.active {
-  background: #6366f1;
-  color: white;
-}
-
-/* BOTÃO */
-.logout {
-  margin-top: 20px;
-  width: 100%;
-  padding: 10px;
-  background: #ef4444;
-  border: none;
-  border-radius: 8px;
-  color: white;
+  border-radius: 12px;
+  text-align: left;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu button:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.menu .active {
+  background: white;
+  color: #0d3b66;
+  font-weight: bold;
+}
+
+/* BOTTOM */
+.bottom {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.danger {
+  background: rgba(255,0,0,0.1);
+  border: none;
+  color: #ff4d4d;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.logout {
+  background: white;
+  border: none;
+  color: black;
+  padding: 12px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+}
+/* VARIAÇÕES DO SIDEBAR */
+
+.sidebar.diretoria {
+  background: linear-gradient(180deg, #003366, #00509d);
+}
+
+.sidebar.suporte {
+  background: linear-gradient(180deg, #1c1c1c, #2b2b2b);
+}
+
+.sidebar.financeiro {
+  background: linear-gradient(180deg, #0b5d2a, #0f7a38);
 }

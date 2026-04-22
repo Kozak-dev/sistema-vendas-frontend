@@ -1,114 +1,189 @@
-import Layout from "../components/Layout";
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip
-} from "recharts";
+import { useState, useEffect } from "react";
+import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
 
-import "../styles/Dashboard.css";
+import DashboardHome from "./DashboardHome";
+import Suporte from "./Suporte";
+import Financeiro from "./Financeiro";
+import Gestao from "./Gestao";
 
 export default function Dashboard() {
+  const [tela, setTela] = useState("dashboard");
+  const [usuario, setUsuario] = useState("Usuário");
 
-  const data = [
-    { name: "Jan", valor: 400 },
-    { name: "Fev", valor: 300 },
-    { name: "Mar", valor: 600 },
-    { name: "Abr", valor: 800 },
-    { name: "Mai", valor: 500 }
-  ];
+  useEffect(() => {
+    const logado = JSON.parse(localStorage.getItem("usuario_logado"));
+
+    if (logado?.nivel === "ADMIN") {
+      setUsuario("DIRETOR");
+    } else if (logado) {
+      setUsuario(logado.nome);
+    }
+  }, []);
 
   return (
-    <Layout>
-      <div className="dashboard">
+  <div className="layout">
+    <Sidebar setTela={setTela} tela={tela} />
 
-        {/* HEADER */}
-        <div className="top">
-          <div>
-            <h1>Dashboard</h1>
-            <p className="subtitle">Bem-vindo de volta 👋</p>
-          </div>
+    <div className="main">
+      <Topbar tela={tela} usuario={usuario} />
 
-          <div className="profile">
-            <span>Admin</span>
-            <div className="avatar"></div>
-          </div>
-        </div>
+      <div className="content">
+        {tela === "dashboard" && (
+          <div className="dashboard-content">
+            <div className="cards-grid">
+              <div className="card blue">
+                <h4>Faturamento Mensal</h4>
+                <h2>R$ 0,00</h2>
+                <small style={{ color: "green" }}>
+                  ↑ Sincronizado com ERP
+                </small>
+              </div>
 
-        {/* CARDS */}
-        <div className="cards">
+              <div className="card green">
+                <h4>Chamados Resolvidos</h4>
+                <h2>0</h2>
+                <small>Triagem Inteligente Ativa</small>
+              </div>
 
-          <div className="card kpi purple">
-            <span>Receita</span>
-            <h1>R$ 12.450</h1>
-            <p>+12% este mês</p>
-          </div>
+              <div className="card red">
+                <h4>Gargalos (Críticos)</h4>
+                <h2>0</h2>
+                <small style={{ color: "red" }}>
+                  Atenção Necessária
+                </small>
+              </div>
+            </div>
 
-          <div className="card kpi blue">
-            <span>Vendas</span>
-            <h1>320</h1>
-            <p>+8% crescimento</p>
-          </div>
+            <div className="grid-2">
+              <div className="infra-card">
+                <div className="infra-header">
+                  <h3>Infraestrutura</h3>
+                  <span className="badge">Status: Estável</span>
+                </div>
 
-          <div className="card kpi green">
-            <span>Clientes</span>
-            <h1>89</h1>
-            <p>Novos clientes</p>
-          </div>
+                <div className="infra-body">
+                  <div className="infra-left">
+                    <div className="title">
+                      CLUSTER DE REDUNDÂNCIA
+                    </div>
 
-          <div className="card kpi red">
-            <span>Chamados TI</span>
-            <h1>8</h1>
-            <p>1 crítico</p>
-          </div>
+                    <div className="dots">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
 
-        </div>
+                    <p className="desc">
+                      Escalabilidade para novos clientes ativa.
+                    </p>
+                  </div>
 
-        {/* GRÁFICOS */}
-        <div className="graficos">
+                  <div className="infra-right">
+                    <strong>Disaster Recovery</strong>
+                    <p>RTO &lt; 1 Hora</p>
+                  </div>
+                </div>
+              </div>
 
-          <div className="card grande">
-            <h3>Visão Geral</h3>
-
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={data}>
-                <defs>
-                  <linearGradient id="colorValor" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-
-                <XAxis dataKey="name" stroke="#94a3b8" />
-                <YAxis stroke="#94a3b8" />
-                <Tooltip />
-
-                <Area
-                  type="monotone"
-                  dataKey="valor"
-                  stroke="#6366f1"
-                  fillOpacity={1}
-                  fill="url(#colorValor)"
-                />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="card">
-            <h3>Atividade</h3>
-
-            <div className="activity">
-              <p>✔ Sistema online</p>
-              <p>✔ 3 vendas hoje</p>
-              <p>⚠ 1 chamado aberto</p>
+              <div className="logs-card">
+                <h3>Logs de Auditoria</h3>
+                <p className="empty">Sem atividades.</p>
+              </div>
             </div>
           </div>
+        )}
 
-        </div>
+        {tela === "suporte" && (
+          <div className="suporte-content">
+            <div className="cards-grid">
+              <div className="card red">
+                <h4>CRÍTICOS (ALTA)</h4>
+                <h2>0</h2>
+              </div>
 
+              <div className="card" style={{ borderColor: "#ffc107" }}>
+                <h4>PENDENTES (MÉDIA)</h4>
+                <h2 style={{ color: "#ffc107" }}>0</h2>
+              </div>
+
+              <div className="card green">
+                <h4>DÚVIDAS (BAIXA)</h4>
+                <h2>0</h2>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tela === "financeiro" && (
+          <div className="financeiro-content">
+            <div className="cards-grid">
+              <div className="card blue">
+                <h4>Faturamento Consolidado</h4>
+                <h2 style={{ color: "#0d6efd" }}>R$ 0,00</h2>
+              </div>
+
+              <div className="card" style={{ borderColor: "#ffc107" }}>
+                <h4>Notas Pendentes</h4>
+                <h2 style={{ color: "#ffc107" }}>0</h2>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tela === "gestao" && (
+          <div className="gestao-content">
+            <div className="grid-2">
+              <div className="gestao-card">
+                <h3>👤 Novo Colaborador</h3>
+
+                <input placeholder="Nome Completo" />
+                <input placeholder="E-mail Corporativo" />
+                <input type="password" placeholder="Definir Senha" />
+
+                <select>
+                  <option>Definir Nível...</option>
+                  <option>Diretoria</option>
+                  <option>Financeiro</option>
+                  <option>Técnico</option>
+                </select>
+
+                <button className="btn-primary">
+                  CRIAR ACESSO
+                </button>
+              </div>
+
+              <div className="gestao-card">
+                <h3>👥 Controle de Permissões</h3>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Colaborador</th>
+                      <th>Nível</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>DIRETOR</td>
+                      <td>
+                        <span className="badge blue">
+                          DIRETORIA
+                        </span>
+                      </td>
+                      <td>🔒</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </Layout>
-  );
+    </div>
+  </div>
+);
+
 }
