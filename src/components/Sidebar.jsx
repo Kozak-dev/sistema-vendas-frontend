@@ -1,19 +1,16 @@
 export default function Sidebar({ setTela, tela }) {
-
   const isSuporte = tela === "suporte";
   const isFinanceiro = tela === "financeiro";
   const isGestao = tela === "gestao";
 
-  // cor dinâmica
   let sidebarClass = "sidebar";
 
   if (isSuporte) sidebarClass += " suporte";
   else if (isFinanceiro) sidebarClass += " financeiro";
-  else sidebarClass += " diretoria"; // padrão (dashboard + gestão)
+  else sidebarClass += " diretoria";
 
   return (
     <div className={sidebarClass}>
-
       <div className="logo">
         <h2>SALA</h2>
         <p>
@@ -25,28 +22,28 @@ export default function Sidebar({ setTela, tela }) {
 
       <button
         className={tela === "dashboard" ? "active" : ""}
-        onClick={() => setTela("dashboard")}
+        onClick={() => setTela && setTela("dashboard")}
       >
         Dashboard
       </button>
 
       <button
         className={tela === "suporte" ? "active" : ""}
-        onClick={() => setTela("suporte")}
+        onClick={() => setTela && setTela("suporte")}
       >
         Suporte
       </button>
 
       <button
         className={tela === "financeiro" ? "active" : ""}
-        onClick={() => setTela("financeiro")}
+        onClick={() => setTela && setTela("financeiro")}
       >
         Financeiro
       </button>
 
       <button
         className={tela === "gestao" ? "active" : ""}
-        onClick={() => setTela("gestao")}
+        onClick={() => setTela && setTela("gestao")}
       >
         Gestão
       </button>
@@ -55,7 +52,6 @@ export default function Sidebar({ setTela, tela }) {
         <button className="danger">Zerar Banco de Dados</button>
         <button>Sair</button>
       </div>
-
     </div>
   );
 }

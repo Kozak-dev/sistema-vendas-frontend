@@ -1,6 +1,6 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-export default function PrivateRoute({ children }) {
+export default function PrivateRoute() {
   const token = localStorage.getItem("token");
   const location = useLocation();
 
@@ -8,5 +8,5 @@ export default function PrivateRoute({ children }) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return children;
+  return <Outlet />;
 }

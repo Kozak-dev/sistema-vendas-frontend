@@ -2,10 +2,6 @@ import { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
-import DashboardHome from "./DashboardHome";
-import Suporte from "./Suporte";
-import Financeiro from "./Financeiro";
-import Gestao from "./Gestao";
 
 export default function Dashboard() {
   const [tela, setTela] = useState("dashboard");
